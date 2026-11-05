@@ -101,7 +101,9 @@ export function playbooksMiddleware({ playbooks, config, model, template, reflec
     },
 
     // After a run that took trial and error (or many steps), ask the model whether it is worth keeping, and keep it.
-    afterAgent: async (state, runtime) => {
+    // The answer is already on the user's screen by now, and the run (and the chat box) stays busy until this hook returns,
+    // so the model call is started in the BACKGROUND and the hook returns at once. It reports through telemetry only.
+    afterAgent: (state, runtime) => {
       const ctx = { thread_id: runtime.configurable?.thread_id };
       try {
         if (!P.reflect || !runtime.store) return;
@@ -110,14 +112,21 @@ export function playbooksMiddleware({ playbooks, config, model, template, reflec
         const errors = calls.filter(failed).length;
         const hard = calls.length >= P.reflectMinToolCalls || (errors > 0 && calls.length >= P.reflectMinToolCallsWithErrors);
         if (!hard) return;
-        const started = telemetry.now();
-        // Tagged "nostream": this call is internal, and its tokens must not appear in the user's chat.
-        const reply = await model.withConfig({ tags: ["nostream"] }).invoke([new SystemMessage(reflectPrompt), new HumanMessage(transcript(state.messages, P.reflectMaxChars))]);
-        const verdict = parseJson(textOf(reply.content));
-        telemetry.event("playbook_reflection", { ms: telemetry.now() - started, tool_calls: calls.length, errors, save: Boolean(verdict?.save) }, ctx);
-        if (!verdict?.save) return;
+        const input = [new SystemMessage(reflectPrompt), new HumanMessage(transcript(state.messages, P.reflectMaxChars))];
+        const store = runtime.store;
         const uid = userIdOf(runtime.configurable, config.memory.userId);
-        await playbooks.save({ store: runtime.store, uid, input: verdict, by: "reflection", ctx });
+        void (async () => {
+          try {
+            const started = telemetry.now();
+            // Tagged "nostream": this call is internal, and its tokens must not appear in the user's chat.
+            const reply = await model.withConfig({ tags: ["nostream"] }).invoke(input);
+            const verdict = parseJson(textOf(reply.content));
+            telemetry.event("playbook_reflection", { ms: telemetry.now() - started, tool_calls: calls.length, errors, save: Boolean(verdict?.save), usage: reply.usage_metadata, background: true }, ctx);
+            if (verdict?.save) await playbooks.save({ store, uid, input: verdict, by: "reflection", ctx });
+          } catch (err) {
+            telemetry.event("memory_error", { phase: "playbook_reflection", error: errorInfo(err) }, ctx);
+          }
+        })();
       } catch (err) {
         telemetry.event("memory_error", { phase: "playbook_reflection", error: errorInfo(err) }, ctx);
       }
