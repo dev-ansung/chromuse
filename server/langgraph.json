@@ -1,0 +1,14 @@
+{
+  "node_version": "22",
+  "dependencies": [
+    "."
+  ],
+  "graphs": {
+    "agent": "./src/graph.js:graph",
+    "connect": "./src/connect-graph.js:graph",
+    "documents": "./src/documents-graph.js:graph"
+  },
+  "http": {
+    "app": "./src/app.js:app"
+  }
+}

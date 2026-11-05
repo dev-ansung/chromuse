@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.DS_Store
+
+# Local state: conversations, memory and playbooks (personal), logs and screenshots (page content)
+server/.langgraph_api/
+server/telemetry/
+
+# Build output
+web/dist/
