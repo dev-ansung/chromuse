@@ -35,13 +35,15 @@ A browser agent that is **fast**, **remembers**, **learns from experience** and 
 
 ## Screenshots
 
+These are illustrative mockups of the interface, not captures of a live app session.
+
 | Chat and live view | Memory and playbooks |
 |---|---|
-| _screenshot: a task in progress, with the live browser view beside the chat_ | _screenshot: the Memory tab (SOUL.md / MEMORY.md) and the Playbooks tab_ |
+| ![Illustrative mockup of Chromuse chat beside its live browser view](web/public/screenshots/chat-live-mockup.png) | ![Illustrative mockup of the Memory and Playbooks panels](web/public/screenshots/memory-playbooks-mockup.png) |
 
 | Voice, image and audio input | Token usage |
 |---|---|
-| _screenshot: the composer with the microphone, an attached image and an audio file_ | _screenshot: the usage bar above the chat during a run_ |
+| ![Illustrative mockup of the composer with image, voice and audio attachments](web/public/screenshots/attachments-mockup.png) | ![Illustrative mockup of the token usage bar](web/public/screenshots/usage-bar-mockup.png) |
 
 ## What it does
 
