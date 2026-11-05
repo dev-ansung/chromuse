@@ -9,19 +9,29 @@ A browser agent that is **fast**, **remembers**, **learns from experience** and 
 
 ## Why Chromuse
 
-**Fast.** Everything that wastes time in a browser agent is cut out:
-- It attaches to the Chrome you already have open. There is no browser to launch and no login to repeat, and your open tabs are listed before the first model call.
-- The model sees only the latest page snapshot, which is the bulk of every prompt. Replaying logged runs, this cuts input tokens and estimated cost by about half (an estimate from logs, not a live comparison).
-- Screenshots go to your live view and never to the model. Muse Spark Open runs at low reasoning effort by default.
-- A playbook turns a task it has done before into the shortest path, so it skips the exploring: it goes straight to the right page, for example the library catalog, instead of searching around.
-- **Measured** on 39 of my own browsing tasks while building it (from the local telemetry log, one machine, before the latest token savings): a task took a median of **14.8 s** and 90% finished within **46 s**, with a median of **4 model calls**. A model call takes a median of **1.7 s**, a browser action **0.1 s**, and listing your tabs **13 ms**.
+**Fast**
+- Works in the Chrome you already have open: no browser to launch, no logins to repeat.
+- Lists your open tabs before the first model call.
+- Sends the model only the latest page snapshot, cutting estimated cost by about half (from logged runs, not a live comparison).
+- Keeps screenshots out of the model: they only go to your live view.
+- Measured on 39 of my own tasks: median 14.8 s, 90% within 46 s, median 4 model calls (one machine, before the latest token savings).
 - _Head-to-head comparison with other browser agents: to be added._
 
-**Remembers.** The server keeps the whole conversation, and what matters about you is written to `MEMORY.md`, so the next session starts with it. Memory is a plain markdown file you can read, correct and undo.
+**Remembers**
+- Keeps the whole conversation on the server.
+- Writes what matters about you to `MEMORY.md`, so the next session starts with it.
+- Memory is a plain markdown file you can read, correct and undo.
 
-**Learns from experience.** After a task that took trial and error, it saves the shortest working path as a playbook, with the dead ends as pitfalls. The next time a task looks similar, it finds the playbook by meaning, using a small local model, and reads the steps only when needed. Playbooks that keep failing rank lower.
+**Learns from experience**
+- Saves the shortest working path as a playbook after a task that took trial and error.
+- Records dead ends as pitfalls, so it doesn't repeat them.
+- Finds a similar playbook by meaning, with a small local model, and reads the steps only when needed.
+- Ranks playbooks that keep failing lower.
 
-**Understands you.** `SOUL.md` is how it behaves and `MEMORY.md` is what it knows about you: your preferences, your accounts and sites, how you like things done. You and the agent both edit them. If you change a file, it is told, and it doesn't undo your edit.
+**Understands you**
+- `SOUL.md` is how it behaves and `MEMORY.md` is what it knows about you.
+- You and the agent both edit them.
+- If you change a file, the agent is told and doesn't undo your edit.
 
 ## Screenshots
 
