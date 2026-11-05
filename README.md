@@ -5,7 +5,7 @@ A browser agent that is **fast**, **remembers**, **learns from experience** and 
 **Team:** dev-ansung (solo)
 **Models:** Muse Spark Open (open weights, served by Baseten) · Muse Voice Transcribe (Meta Model API)
 
-> Demo video: https://youtu.be/4wtCvTVinfY
+> Demo video: https://www.youtube.com/watch?v=fgoRNn6s9ic
 
 ## Why Chromuse
 
@@ -14,7 +14,8 @@ A browser agent that is **fast**, **remembers**, **learns from experience** and 
 - Lists your open tabs before the first model call.
 - Sends the model only the latest page snapshot, cutting estimated cost by about half (from logged runs, not a live comparison).
 - Keeps screenshots out of the model: they only go to your live view.
-- Measured on 54 of my own browsing tasks while building it (local telemetry log, one machine, code changing throughout): the first browser action starts a median of 2 s after you send the task, and a whole task takes a median of 19.1 s (90% within 46 s) with a median of 6 model calls. A model call takes 1.7 s, a browser action 0.15 s, a page snapshot 51 ms and listing your tabs 13 ms.
+- Response time: the model's first response arrives a median of 2.4 s after you send a task (69% within 3 s, 90% within 5.1 s), and the first browser action starts a median of 2.3 s after (74 tasks, local telemetry log, one machine).
+- A whole browsing task takes a median of 19.1 s with 6 model calls (54 tasks); a model call takes 1.7 s, a browser action 0.15 s and listing your tabs 13 ms.
 - _Head-to-head comparison with other browser agents: to be added._
 
 **Remembers**
