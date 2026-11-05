@@ -5,7 +5,7 @@ A browser agent that is **fast**, **remembers**, **learns from experience** and 
 **Team:** dev-ansung (solo)
 **Models:** Muse Spark Open (open weights, served by Baseten) · Muse Voice Transcribe (Meta Model API)
 
-> Demo video: _link to be added_
+> Demo video: https://youtu.be/4wtCvTVinfY
 
 ## Why Chromuse
 
