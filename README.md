@@ -1,11 +1,26 @@
 # Chromuse
 
-An autonomous agent that does tasks in **your own Chrome**, with your tabs and logins, powered by **Muse Spark Open**. You give it a task in plain words, by typing, speaking, or attaching an image. It opens pages, reads them, clicks and types, and reports back. You watch what it does live, and it remembers how it solved tasks so the next one goes faster.
+A browser agent that is **fast**, **remembers**, **learns from experience** and **understands you**. It does tasks in **your own Chrome**, with your tabs and logins, powered by **Muse Spark Open**. Give it a task by typing, speaking, or attaching an image. It opens pages, reads them, clicks and types, and reports back while you watch it live.
 
 **Team:** dev-ansung (solo)
 **Models:** Muse Spark Open (open weights, served by Baseten) · Muse Voice Transcribe (Meta Model API)
 
 > Demo video: _link to be added_
+
+## Why Chromuse
+
+**Fast.** Everything that wastes time in a browser agent is cut out:
+- It attaches to the Chrome you already have open. There is no browser to launch and no login to repeat, and your open tabs are listed before the first model call.
+- The model sees only the latest page snapshot, which is the bulk of every prompt. Replaying logged runs, this cuts input tokens and estimated cost by about half (an estimate from logs, not a live comparison).
+- Screenshots go to your live view and never to the model. Muse Spark Open runs at low reasoning effort by default.
+- A playbook turns a task it has done before into the shortest path, so it skips the exploring: it goes straight to the right page, for example the library catalog, instead of searching around.
+- _Benchmark against other browser agents: numbers to be added._
+
+**Remembers.** The server keeps the whole conversation, and what matters about you is written to `MEMORY.md`, so the next session starts with it. Memory is a plain markdown file you can read, correct and undo.
+
+**Learns from experience.** After a task that took trial and error, it saves the shortest working path as a playbook, with the dead ends as pitfalls. The next time a task looks similar, it finds the playbook by meaning, using a small local model, and reads the steps only when needed. Playbooks that keep failing rank lower.
+
+**Understands you.** `SOUL.md` is how it behaves and `MEMORY.md` is what it knows about you: your preferences, your accounts and sites, how you like things done. You and the agent both edit them. If you change a file, it is told, and it doesn't undo your edit.
 
 ## Screenshots
 
