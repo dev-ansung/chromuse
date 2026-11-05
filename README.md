@@ -14,7 +14,7 @@ A browser agent that is **fast**, **remembers**, **learns from experience** and 
 - Lists your open tabs before the first model call.
 - Sends the model only the latest page snapshot, cutting estimated cost by about half (from logged runs, not a live comparison).
 - Keeps screenshots out of the model: they only go to your live view.
-- Measured on 39 of my own tasks: median 14.8 s, 90% within 46 s, median 4 model calls (one machine, before the latest token savings).
+- Measured on 54 of my own browsing tasks while building it (local telemetry log, one machine, code changing throughout): the first browser action starts a median of 2 s after you send the task, and a whole task takes a median of 19.1 s (90% within 46 s) with a median of 6 model calls. A model call takes 1.7 s, a browser action 0.15 s, a page snapshot 51 ms and listing your tabs 13 ms.
 - _Head-to-head comparison with other browser agents: to be added._
 
 **Remembers**
