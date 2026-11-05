@@ -14,7 +14,8 @@ A browser agent that is **fast**, **remembers**, **learns from experience** and 
 - The model sees only the latest page snapshot, which is the bulk of every prompt. Replaying logged runs, this cuts input tokens and estimated cost by about half (an estimate from logs, not a live comparison).
 - Screenshots go to your live view and never to the model. Muse Spark Open runs at low reasoning effort by default.
 - A playbook turns a task it has done before into the shortest path, so it skips the exploring: it goes straight to the right page, for example the library catalog, instead of searching around.
-- _Benchmark against other browser agents: numbers to be added._
+- **Measured** on 39 of my own browsing tasks while building it (from the local telemetry log, one machine, before the latest token savings): a task took a median of **14.8 s** and 90% finished within **46 s**, with a median of **4 model calls**. A model call takes a median of **1.7 s**, a browser action **0.1 s**, and listing your tabs **13 ms**.
+- _Head-to-head comparison with other browser agents: to be added._
 
 **Remembers.** The server keeps the whole conversation, and what matters about you is written to `MEMORY.md`, so the next session starts with it. Memory is a plain markdown file you can read, correct and undo.
 
